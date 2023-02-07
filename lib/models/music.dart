@@ -27,12 +27,6 @@ class Music {
       favorito: (json['favorito'] as bool),
     );
   }
-
-  @override // para console (debuggar)
-  String toString() {
-    return 'musica{idMusica: $idMusica, titulo: $titulo, artista: $artista}';
-  }
-  
 }
 
 enum TipoMusical{ // Enum do Tipo musica
