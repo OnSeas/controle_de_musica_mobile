@@ -1,5 +1,5 @@
 class Music {
-  final String idMusica;
+  final int idMusica;
   final String titulo;
   final TipoMusical estiloMusical;
   final int duracao;
@@ -18,7 +18,7 @@ class Music {
 
     factory Music.fromJson(Map<String, dynamic> json) { // Conversão entre jason e music
     return Music(
-      idMusica: (json['idMusica'] as int).toString(),
+      idMusica: (json['idMusica'] as int),
       titulo: (json['titulo'] as String),
       estiloMusical: stringToTipoMusical(json['estiloMusical'] as String), // recebe uma string e transforma para o tipo enum
       duracao: (json['duracao'] as int),

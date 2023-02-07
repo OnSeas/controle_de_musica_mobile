@@ -1,5 +1,6 @@
 import 'package:controle_de_musica_mobile/api/api-service.dart';
 import 'package:controle_de_musica_mobile/components/music-tile.dart';
+import 'package:controle_de_musica_mobile/routes/app-routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -29,7 +30,7 @@ class _MusicListState extends State<MusicList> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              
+              Navigator.pushNamed(context, AppRoutes.CREATE_MUSIC);
             },
             color: Colors.white,
           )
