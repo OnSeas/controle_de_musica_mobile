@@ -6,9 +6,10 @@ import 'package:http/http.dart';
 import '../models/music.dart';
 
 class ApiService {
-  final String apiUrl = "http://10.200.12.61:8081/musica"; // mudar o ip sempre que for rodar
+  final String apiUrl = "http://10.101.4.108:8081/musica"; // mudar o ip sempre que for rodar
 
-  Future<List<Music>> getMusicas() async { // Listar todas
+  // Listar todas
+  Future<List<Music>> getMusicas() async {
     Response res = await get(Uri.parse(apiUrl)); // await e o método que chama no backend, neste caso get
 
     if(res.statusCode == 200){
@@ -23,7 +24,8 @@ class ApiService {
     }
   }
 
-  Future<Music> criarMusica(Music music) async{ // Mandar requisição para criar
+  // Mandar requisição para criar
+  Future<Music> criarMusica(Music music) async{
     Map data ={ // Criação do estilo de dado
       'titulo': music.titulo,
       'estiloMusical': music.estiloMusical,
