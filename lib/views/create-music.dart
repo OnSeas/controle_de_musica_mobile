@@ -50,6 +50,12 @@ class _CreateMusicState extends State<CreateMusic> {
                   child: TextFormField(
                     controller: _tituloController,
                     decoration: InputDecoration(labelText: 'Título'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor preencha o campo Título';
+                      }
+                      return null;
+                    },
                   ),
                 ),
 
@@ -59,6 +65,12 @@ class _CreateMusicState extends State<CreateMusic> {
                   child: TextFormField(
                     controller: _artistaController,
                     decoration: InputDecoration(labelText: 'Artista'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor preencha o campo Artista';
+                      }
+                      return null;
+                    },
                   ),
                 ),
 
@@ -68,6 +80,12 @@ class _CreateMusicState extends State<CreateMusic> {
                   child: TextFormField(
                     controller: _compositorController,
                     decoration: InputDecoration(labelText: 'Compositor'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor preencha o campo Compositor';
+                      }
+                      return null;
+                    },
                   ),
                 ),
 
@@ -78,6 +96,15 @@ class _CreateMusicState extends State<CreateMusic> {
                     controller: _duracaoController,
                     decoration: InputDecoration(labelText: 'duração'),
                     keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Por favor preencha o campo Duração';
+                      }
+                      if (int.parse(value) < 50){
+                        return 'A duração deve ter mais de 50 segundos!';
+                      }
+                      return null;
+                    },
                   ),
                 ),
 
@@ -181,7 +208,7 @@ class _CreateMusicState extends State<CreateMusic> {
 
                         // Quando pressionado
                         onPressed: () {
-                          if(true){
+                          if(_form.currentState!.validate()){
                             _form.currentState!.save();
                             api.createMusic(
                               Music(
