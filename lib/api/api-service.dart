@@ -26,9 +26,6 @@ class ApiService {
     }
   }
 
-  // Para pegar as informações de uma música
-  
-
   // Mandar requisição para criar
   Future<Music> createMusic(Music music) async{
     // Criação do estilo de dado jason
@@ -59,7 +56,31 @@ class ApiService {
     }  
   }
 
+  // Editar músicas
+  Future<Music> updateMusic(int id, Music music) async {
+    // Criação do estilo de dado jason
+    Map data ={
+      'titulo': music.titulo,
+      'estiloMusical': music.estiloMusical.toString().split('.')[1],
+      'duracao': music.duracao,
+      'artista': music.artista,
+      'compositor': music.compositor,
+    };
 
+    final Response res = await patch(
+      Uri.parse('$apiUrl/$id'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(data),
+    );
+    if (res.statusCode == 200) {
+      print("Teve resposta 200 do backend - atualizar musica");
+      return Music.fromJson(json.decode(res.body));
+    } else {
+      throw Exception('Erro ao atualizar música!');
+    }
+  }
 
   // Deletar Músicas
   Future<void> deleteCase(int id) async {

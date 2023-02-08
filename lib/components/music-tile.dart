@@ -1,4 +1,5 @@
 import 'package:controle_de_musica_mobile/api/api-service.dart';
+import 'package:controle_de_musica_mobile/components/music-edit.dart';
 import 'package:controle_de_musica_mobile/components/music-info.dart';
 import 'package:controle_de_musica_mobile/views/music-list.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,12 @@ class MusicTile extends StatelessWidget {
               icon: Icon(Icons.edit),
               color: Theme.of(context).colorScheme.primary,
               onPressed: () {
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(
+                    builder:(context) => MusicEdit(music),
+                  )
+                );
               },
             ),
             IconButton(

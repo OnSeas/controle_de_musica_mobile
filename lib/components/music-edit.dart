@@ -1,20 +1,22 @@
-import 'package:controle_de_musica_mobile/api/api-service.dart';
-import 'package:controle_de_musica_mobile/models/music.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class CreateMusic extends StatefulWidget {
-  const CreateMusic({super.key});
+import '../api/api-service.dart';
+import '../models/music.dart';
+
+class MusicEdit extends StatefulWidget {
+  final Music music;
+
+  const MusicEdit(this.music);
 
   @override
-  State<CreateMusic> createState() => _CreateMusicState();
+  State<MusicEdit> createState() => _MusicEditState();
 }
 
-class _CreateMusicState extends State<CreateMusic> {
+class _MusicEditState extends State<MusicEdit> {
 
-  final ApiService api = ApiService();
+final ApiService api = ApiService();
 
   // Key do form
   final _form = GlobalKey<FormState>();
@@ -22,11 +24,41 @@ class _CreateMusicState extends State<CreateMusic> {
   TipoMusical? _tipoMusical = TipoMusical.FOLK; // Para movimentar o radio
 
   // Strings para salvar o conteúdo
+  late int id;
   String tipoMusical = "FOLK";
   final _tituloController = TextEditingController();
   final _artistaController = TextEditingController();
   final _compositorController = TextEditingController();
   final _duracaoController = TextEditingController();
+
+  @override
+  void initState() {
+    id = widget.music.idMusica;
+    _tituloController.text = widget.music.titulo;
+    _artistaController.text = widget.music.artista;
+    _compositorController.text = widget.music.compositor;
+    _duracaoController.text = widget.music.duracao.toString();
+    tipoMusical = widget.music.estiloMusical.toString().split('.')[1];
+    switch(tipoMusical){
+      case 'FOLK': 
+        _tipoMusical = TipoMusical.FOLK;
+        break;
+      case 'MPB': 
+        _tipoMusical = TipoMusical.MPB;
+        break;
+      case 'POP': 
+        _tipoMusical = TipoMusical.POP;
+        break;
+      case 'REB': 
+        _tipoMusical = TipoMusical.REB;
+        break;
+      case 'ROCK': 
+        _tipoMusical = TipoMusical.ROCK;
+        break;
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +215,8 @@ class _CreateMusicState extends State<CreateMusic> {
                         onPressed: () {
                           if(true){
                             _form.currentState!.save();
-                            api.createMusic(
+                            api.updateMusic(
+                              id,
                               Music(
                                 idMusica: 0,
                                 titulo: _tituloController.text,
