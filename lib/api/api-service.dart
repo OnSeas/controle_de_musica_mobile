@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 import '../models/music.dart';
 
 class ApiService {
-  final String apiUrl = "http://10.200.0.122:8081/musica"; // mudar o ip sempre que for rodar
+  final String apiUrl = "http://10.101.4.108:8081/musica"; // mudar o ip sempre que for rodar
 
   // Listar todas
   Future<List<Music>> getMusicas() async {
@@ -25,6 +25,9 @@ class ApiService {
       throw "Erro ao encontrar músicas!";
     }
   }
+
+  // Para pegar as informações de uma música
+  
 
   // Mandar requisição para criar
   Future<Music> createMusic(Music music) async{
@@ -56,4 +59,16 @@ class ApiService {
     }  
   }
 
+
+
+  // Deletar Músicas
+  Future<void> deleteCase(int id) async {
+    Response res = await delete(Uri.parse('$apiUrl/$id'));
+
+    if (res.statusCode == 200) {
+      print("Teve resposta 200 do backend - deletar musica");
+    } else {
+      throw "Erro ao deletar música!";
+    }
+  }
 }

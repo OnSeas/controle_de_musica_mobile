@@ -58,7 +58,7 @@ class _MusicListState extends State<MusicList> {
                 }
                 return ListView.builder( // Lista de músicas
                   itemCount: musicas.length,
-                  itemBuilder: ((context, i) => MusicTile(musicas.elementAt(i), i+1)) // Chama o MusicTile para construir a apresentação de cada música
+                  itemBuilder: ((context, i) => MusicTile(musicas.elementAt(i), i+1, api)) // Chama o MusicTile para construir a apresentação de cada música
                 );
               },
             )
