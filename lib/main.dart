@@ -1,5 +1,7 @@
 import 'package:controle_de_musica_mobile/routes/app-routes.dart';
 import 'package:controle_de_musica_mobile/views/create-music.dart';
+import 'package:controle_de_musica_mobile/views/music-list-favorite.dart';
+import 'package:controle_de_musica_mobile/views/music-list-view.dart';
 import 'package:controle_de_musica_mobile/views/music-list.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +23,9 @@ class MyApp extends StatelessWidget {
       home: const MyHomePage(title: 'UpMusic'),
       routes: {
         AppRoutes.MUSIC_LIST:(context) => MusicList(),
-        AppRoutes.CREATE_MUSIC:(context) => CreateMusic()
+        AppRoutes.CREATE_MUSIC:(context) => CreateMusic(),
+        AppRoutes.MUSIC_LIST_VIEW:(context) => MusicListView(),
+        AppRoutes.MUSIC_LIST_FAVORITE:(context) => MusicListFavorite()
       },
     );
   }
@@ -82,11 +86,15 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               IconButton(
                 icon: Icon(Icons.library_music),
-                onPressed: (() {})
+                onPressed: (() {
+                  Navigator.pushNamed(context, AppRoutes.MUSIC_LIST_VIEW);
+                })
               ),
               IconButton(
                 icon: Icon(Icons.favorite),
-                onPressed: (() {})
+                onPressed: (() {
+                  Navigator.pushNamed(context, AppRoutes.MUSIC_LIST_FAVORITE);
+                })
               ),
               IconButton(
                 icon: Icon(Icons.admin_panel_settings_rounded),

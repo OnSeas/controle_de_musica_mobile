@@ -5,7 +5,7 @@ class Music {
   final int duracao;
   final String artista;
   final String compositor;
-  final bool favorito;
+  bool favorito;
 
   Music( // Construtor
     {required this.idMusica,

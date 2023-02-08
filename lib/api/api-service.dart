@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 import '../models/music.dart';
 
 class ApiService {
-  final String apiUrl = "http://10.101.4.108:8081/musica"; // mudar o ip sempre que for rodar
+  final String apiUrl = "http://192.168.3.9:8081/musica"; // mudar o ip sempre que for rodar
 
   // Listar todas
   Future<List<Music>> getMusicas() async {
@@ -23,6 +23,25 @@ class ApiService {
       return <Music>[];
     } else {
       throw "Erro ao encontrar músicas!";
+    }
+  }
+
+  // Listar favoritas
+  Future<List<Music>> getfavorites() async {
+    Response res = await get(
+      Uri.parse('$apiUrl/favoritas')
+    ); // await e o método que chama no backend, neste caso get
+
+    if(res.statusCode == 200){
+      print("Teve resposta 200 do backend - getFavorites");
+      List<dynamic> body = jsonDecode(res.body);
+      List<Music> musicas = body.map((dynamic item) => Music.fromJson(item)).toList();
+      return musicas;
+    }else if (res.statusCode == 404) {
+      print("resposta 404 - getFavorites");
+      return <Music>[];
+    } else {
+      throw "Erro ao encontrar músicas favoritas!";
     }
   }
 
@@ -79,6 +98,30 @@ class ApiService {
       return Music.fromJson(json.decode(res.body));
     } else {
       throw Exception('Erro ao atualizar música!');
+    }
+  }
+
+  // Favoritar a música
+  Future<void> favoriteMusic(int id) async {
+    final Response res = await patch(
+      Uri.parse('$apiUrl/fav/$id')
+    );
+    if (res.statusCode == 200) {
+      print("Teve resposta 200 do backend - Favoritar música");
+    } else {
+      throw Exception('Erro ao favoritar música!');
+    }
+  }
+
+  // Unfavoritar a música
+  Future<void> unFavoriteMusic(int id) async {
+    final Response res = await patch(
+      Uri.parse('$apiUrl/unfav/$id')
+    );
+    if (res.statusCode == 200) {
+      print("Teve resposta 200 do backend - Desfavoritar música");
+    } else {
+      throw Exception('Erro ao desfavoritar música!');
     }
   }
 
